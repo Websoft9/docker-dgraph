@@ -7,7 +7,7 @@ services:
 
   dgraph:
     image: dgraph/standalone:${DB_DGRAPH_VERSION}
-    container_name: ${APP_CONTAINER_NAME}
+    container_name: ${APP_NAME}
     restart: always
     ports:
      - 8080:8080
@@ -19,7 +19,7 @@ services:
 
 networks:
   default:
-      name: ${APP_NETWORK}
+      name: ${APP_NAME}
 
 volumes:
   dgraph:
