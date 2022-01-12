@@ -4,18 +4,40 @@
 version: '3.8'
 
 services:
-
-  dgraph:
-    image: dgraph/standalone:${DB_DGRAPH_VERSION}
-    container_name: ${APP_NAME}
-    restart: always
-    ports:
-     - 8080:8080
-     - 8000:8000
-     - 9080:9080
-    command: ["/run.sh", "--bindall"]
+  zero:
+    image: dgraph/dgraph:${DB_DGRAPH_VERSION}
+    container_name: ${APP_NAME}-zero
     volumes:
-     - dgraph:/dgraph
+      - dgraph:/dgraph
+    ports:
+      - 5080:5080
+      - 6080:6080
+    restart: on-failure
+    command: dgraph zero --my=zero:5080
+
+  alpha:
+    image: dgraph/dgraph:${DB_DGRAPH_VERSION}
+    container_name: ${APP_NAME}-alpha
+    volumes:
+      - dgraph:/dgraph
+    ports:
+      - 8080:8080
+      - 9080:9080
+    restart: on-failure
+    command: dgraph alpha --my=alpha:7080 --zero=zero:5080
+
+  ratel:
+    image: dgraph/ratel:${DB_DGRAPH_VERSION}
+    container_name: ${APP_NAME}-ratel
+    volumes:
+      - type: volume
+        source: dgraph
+        target: /dgraph
+        volume:
+          nocopy: true
+    ports:
+      - 8000:8000
+    command: dgraph-ratel
 
 networks:
   default:

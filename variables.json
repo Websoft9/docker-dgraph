@@ -1,6 +1,7 @@
 {
   "name": "dgraph",
   "trademark": "Dgraph",
+  "official_url": "https://github.com/dgraph-io/dgraph",
   "installpath": "/data/dgraph",
   "compose_file": "docker-compose.yml",
   "fork_url": "",
@@ -18,7 +19,7 @@
     {
       "name": "Dgraph",
       "port": "8000",
-      "description_cn": "HTTP 访问 Dgraph 控制台",
+      "description_cn": "HTTP 访问 Dgraph GUI 控制台",
       "description_en": "Accessing Dgraph web console by HTTP",
       "required": "Y"
     }
